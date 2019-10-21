@@ -1,4 +1,4 @@
-//const axios = require('axios');
+
 const urlCurrency = 'http://www.apilayer.net/api/live?access_key=6105ba1cc5faf4a35ed3eb2f0d451faf&format=1';
 const urlCountry = 'https://restcountries.eu/rest/v2/currency/';
 
@@ -13,8 +13,7 @@ const getCountries = async (currencyCode) => {
     console.log(response.data[0].name);
 }
 
-getExchangeRate();
-getCountries('HRK'); */
+*/
 
 // Get list of countries and fill select element with it
 
@@ -24,7 +23,6 @@ async function getCountries(){
     countriesList = await countriesList.json();
     select.map((element) => {
         countriesList.map( country => {
-            console.log(country);
             const option = document.createElement('option');
             option.textContent = `${country.name} - ${country.currencies[0].code}`;
             option.value = `${country.currencies[0].code}`;
@@ -37,7 +35,3 @@ async function getCountries(){
 }
 
 getCountries();
-
-/* const opcije = Array.from(document.querySelectorAll('#from option'));
-console.log(opcije);
-opcije.map(el => console.log(el.value)); */
