@@ -1,19 +1,6 @@
 
-const urlCurrency = 'http://www.apilayer.net/api/live?access_key=6105ba1cc5faf4a35ed3eb2f0d451faf&format=1';
+const urlCurrency = 'http://data.fixer.io/api/latest?access_key=fb9c548f646108b674e3ed2114dd2062&format=1';
 const urlCountry = 'https://restcountries.eu/rest/v2/currency/';
-
-/* const getExchangeRate = async (fromCurrency, toCurrency) => {
-    const response = await axios.get(urlCurrency);
-    const rates = response.data.quotes;
-    console.log(response.data.quotes);
-}
-
-const getCountries = async (currencyCode) => {
-    const response = await axios.get(`${urlCountry}${currencyCode}`);
-    console.log(response.data[0].name);
-}
-
-*/
 
 // Get list of countries and fill select element with it
 
@@ -27,11 +14,21 @@ async function getCountries(){
             option.textContent = `${country.name} - ${country.currencies[0].code}`;
             option.value = `${country.currencies[0].code}`;
             element.appendChild(option);
-        })
-
-        
-    })
-
+        });
+    });
 }
 
 getCountries();
+
+// Get base rate for Euro and calculate exchange rate
+
+async function getExchangeRate() {
+    const from = document.querySelector('#from').value;
+    const to = document.querySelector('#to').value;
+    const ratesResponse = await fetch(urlCurrency);
+    const ratesData = await ratesResponse.json();
+
+    return ratesData.rates[to] / ratesData.rates[from];
+}
+
+
