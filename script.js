@@ -2,7 +2,8 @@
 
 const urlCurrency = 'http://data.fixer.io/api/latest?access_key=fb9c548f646108b674e3ed2114dd2062&format=1';
 const urlCountry = 'https://restcountries.eu/rest/v2/all';
-const btn = document.querySelector('.btnCalc button');
+const btnCalculate = document.querySelector('.btnCalc button');
+const btnSwitch = document.querySelector('.switch button');
 
 // Get list of countries and fill select element with it
 
@@ -54,10 +55,17 @@ const updateDOM = (data, inputValue, fromCurrency, toCurrency) => {
 // Switch place of currencies ( to on place of from)
 
 const switchPlace = () => {
-    
+    const fromCurrency = document.querySelector('#from');
+    const toCurrency = document.querySelector('#to');
+
+    const indexFrom = fromCurrency.selectedIndex;
+
+    fromCurrency.selectedIndex = toCurrency.selectedIndex;
+    toCurrency.selectedIndex = indexFrom;
 }
 
 // event listeners
 
-btn.addEventListener('click', getExchangeRate);
 window.onload = getCountries();
+btnCalculate.addEventListener('click', getExchangeRate);
+btnSwitch.addEventListener('click', switchPlace);
